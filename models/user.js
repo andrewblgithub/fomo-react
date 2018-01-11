@@ -1,6 +1,7 @@
-const Sequelize = require('../db/config.js');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/config.js');
 
-const User = Sequelize.define('user', {
+const User = sequelize.define('user', {
   username: Sequelize.STRING,
   password: Sequelize.STRING,
   recent_activity: Sequelize.DATE,

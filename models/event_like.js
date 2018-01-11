@@ -1,6 +1,7 @@
-const Sequelize = require('../db/config.js');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/config.js');
 
-const EventLike = Sequelize.define('eventLike', {
+const EventLike = sequelize.define('eventLike', {
   created_at: Sequelize.DATE,
   user_id: {
     type: Sequelize.INTEGER,

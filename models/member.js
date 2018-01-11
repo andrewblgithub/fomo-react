@@ -1,6 +1,7 @@
-const Sequelize = require('../db/config.js');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/config.js');
 
-const Member = Sequelize.define('member', {
+const Member = sequelize.define('member', {
   created_at: Sequelize.DATE,
   user_id: {
     type: Sequelize.INTEGER,

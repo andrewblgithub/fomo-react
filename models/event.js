@@ -1,6 +1,7 @@
-const Sequelize = require('../db/config.js');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/config.js');
 
-const Event = Sequelize.define('event', {
+const Event = sequelize.define('event', {
   title: Sequelize.STRING,
   description: Sequelize.STRING,
   img_url: Sequelize.STRING,

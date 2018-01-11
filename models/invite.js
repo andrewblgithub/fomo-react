@@ -1,6 +1,7 @@
-const Sequelize = require('../db/config.js');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/config.js');
 
-const Invite = Sequelize.define('invite', {
+const Invite = sequelize.define('invite', {
   created_at: Sequelize.DATE,
   accepted: Sequelize.BOOLEAN,
   user_id: {

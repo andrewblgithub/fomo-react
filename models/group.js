@@ -1,6 +1,7 @@
-const Sequelize = require('../db/config.js');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/config.js');
 
-const Group = Sequelize.define('group', {
+const Group = sequelize.define('group', {
   name: Sequelize.STRING,
   description: Sequelize.STRING,
   created_at: Sequelize.DATE,
