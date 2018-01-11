@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import List from './components/List.jsx';
+import Groups from './components/Groups.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      groups: []
     }
   }
 
@@ -15,8 +15,8 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
+      <h1>Groups</h1>
+      <Groups groups={this.state.groups}/>
     </div>)
   }
 }
