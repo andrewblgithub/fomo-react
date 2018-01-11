@@ -7,7 +7,6 @@ const Event = sequelize.define('event', {
   img_url: Sequelize.STRING,
   start_time: Sequelize.DATE,
   end_time: Sequelize.DATE,
-  created_at: Sequelize.DATE,
   user_id: {
     type: Sequelize.INTEGER,
     references: {
@@ -23,5 +22,7 @@ const Event = sequelize.define('event', {
     }
   }
 });
+
+Event.sync();
 
 module.exports = Event;

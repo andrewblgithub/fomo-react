@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const sequelize = require('../db/config.js');
 
 const Invite = sequelize.define('invite', {
-  created_at: Sequelize.DATE,
   accepted: Sequelize.BOOLEAN,
   user_id: {
     type: Sequelize.INTEGER,
@@ -26,5 +25,7 @@ const Invite = sequelize.define('invite', {
     }
   }
 });
+
+Invite.sync();
 
 module.exports = Invite;

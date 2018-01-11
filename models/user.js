@@ -2,10 +2,15 @@ const Sequelize = require('sequelize');
 const sequelize = require('../db/config.js');
 
 const User = sequelize.define('user', {
-  username: Sequelize.STRING,
+  email: Sequelize.STRING,
   password: Sequelize.STRING,
-  recent_activity: Sequelize.DATE,
-  created_at: Sequelize.DATE
+  username: Sequelize.STRING,
+  first_name: Sequelize.STRING,
+  last_name: Sequelize.STRING,
+  avatar_url: Sequelize.STRING,
+  recent_activity: Sequelize.DATE
 });
+
+User.sync();
 
 module.exports = User;

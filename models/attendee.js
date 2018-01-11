@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const sequelize = require('../db/config.js');
 
 const Attendee = sequelize.define('attendee', {
-  created_at: Sequelize.DATE,
   user_id: {
     type: Sequelize.INTEGER,
     references: {
@@ -18,5 +17,7 @@ const Attendee = sequelize.define('attendee', {
     }
   }
 });
+
+Attendee.sync();
 
 module.exports = Attendee;
