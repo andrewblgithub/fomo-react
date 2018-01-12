@@ -1,16 +1,18 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/config.js');
+const User = require('../models/user.js');
 
 const Group = sequelize.define('group', {
-  name: Sequelize.STRING,
+  name: {type: Sequelize.STRING, allowNull: false},
   description: Sequelize.STRING,
-  private: Sequelize.BOOLEAN,
+  private: {type: Sequelize.BOOLEAN, allowNull: false},
   user_id: {
     type: Sequelize.INTEGER,
     references: {
       model: User,
       key: 'id'
-    }
+    },
+    allowNull: false
   }
 });
 

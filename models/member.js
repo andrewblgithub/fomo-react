@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/config.js');
+const User = require('../models/user.js');
+const Group = require('../models/group.js');
 
 const Member = sequelize.define('member', {
   user_id: {
