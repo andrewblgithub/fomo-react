@@ -2,11 +2,11 @@ const Sequelize = require('sequelize');
 const sequelize = require('../db/config.js');
 
 const User = sequelize.define('user', {
-  email: Sequelize.STRING,
-  password: Sequelize.STRING,
-  username: Sequelize.STRING,
-  first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING,
+  email: {type: Sequelize.STRING, allowNull: false},
+  password: {type: Sequelize.STRING, allowNull: false},
+  first_name: {type: Sequelize.STRING, allowNull: false},
+  last_name: {type: Sequelize.STRING, allowNull: false},
+  nickname: Sequelize.STRING,
   avatar_url: Sequelize.STRING,
   recent_activity: Sequelize.DATE
 });
