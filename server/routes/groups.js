@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res)=> {
-  groups.getPublicGroups((groups)=> {
-    res.json(groups);
-  });
-});
+// router.get('/', (req, res)=> {
+//   groups.getPublicGroups((groups)=> {
+//     res.json(groups);
+//   });
+// });
 
 router.get('/:user_id', (req, res)=> {
   groups.getUserGroups(req.params.user_id, (groups)=> {

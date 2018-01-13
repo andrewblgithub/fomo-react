@@ -25,13 +25,13 @@ const deleteGroup = () => {
   // })
 };
 
-const getGroup = (input, callback) => {
-  Group.findOne({
-    where: {id: input}
-  }).then((group)=> {
-    callback(group);
-  })
-};
+// const getGroup = (input, callback) => {
+//   Group.findOne({
+//     where: {id: input}
+//   }).then((group)=> {
+//     callback(group);
+//   })
+// };
 
 // finds user memberships then finds associated groups
 // replace with more efficient join table
@@ -52,20 +52,17 @@ const getUserGroups = (input, callback) => {
   })
 };
 
-// use to public group search
-const getPublicGroups = (callback) => {
-  Group.findAll({
-    where: {private: false}
-  }).then((groups)=> {
-    callback(groups);
-  })
-};
+// const getPublicGroups = (callback) => {
+//   Group.findAll({
+//     where: {private: false}
+//   }).then((groups)=> {
+//     callback(groups);
+//   })
+// };
 
 module.exports = {
   createGroup,
   updateGroup,
   deleteGroup,
-  getGroup,
   getUserGroups,
-  getPublicGroups,
 }

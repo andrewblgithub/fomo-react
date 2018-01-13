@@ -5,7 +5,6 @@ const User = require('../models/user.js');
 const Group = sequelize.define('group', {
   name: {type: Sequelize.STRING, allowNull: false},
   description: Sequelize.STRING,
-  private: {type: Sequelize.BOOLEAN, allowNull: false},
   user_id: {
     type: Sequelize.INTEGER,
     references: {
