@@ -1,10 +1,11 @@
 import React from 'react';
+import ChatWindow from './ChatWindow.jsx';
+import ChatForm from './ChatForm.jsx';
 
 const Chat = (props) => (
   <div>
-    <h4> Chat Component </h4>
-    <p>Message child components go here.</p>
-    <p>Chat form goes here.</p>
+    <ChatWindow/>
+    <ChatForm/>
   </div>
 )
 

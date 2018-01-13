@@ -4,6 +4,8 @@ const db = require('../db/config.js');
 
 const app = express();
 
+const expressWs = require('express-ws')(app);
+
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 const users = require('./routes/users');
@@ -14,7 +16,7 @@ const events = require('./routes/events');
 const auth = require('./routes/auth');
 
 app.use('/users', users);
-// app.use('/messages', messages);
+app.use('/messages', messages);
 // app.use('/invites', invites);
 app.use('/groups', groups);
 // app.use('/events', events);
