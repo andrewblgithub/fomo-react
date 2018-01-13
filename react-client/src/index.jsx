@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Grid, Row, Col, Tabs, Tab, Collapse} from 'react-bootstrap';
 import axios from 'axios';
 import Groups from './components/Groups.jsx';
 import Events from './components/Events.jsx';
@@ -10,11 +11,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
+      mobileViewToggle: false,
       users: [],
       userId: 2,
       groups: [],
       groupId: null
     }
+    this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getGroups = this.getGroups.bind(this);
     this.createGroup = this.createGroup.bind(this);
@@ -62,20 +65,91 @@ class App extends React.Component {
     });
   }
 
+  mobileViewSwitch() {
+    this.setState({
+      mobileViewToggle: !this.state.mobileViewToggle
+    })
+  }
+
   render () {
-    return (
+    let GroupsComponent = (
+      <Groups 
+      groups={this.state.groups}
+      createGroup={this.createGroup}
+      />
+    )
+    let EventsComponent = (
+      <Events/>
+    )
+    let ChatComponent = (
+      <Chat/>
+    )
+    let UsersComponent = (
       <div>
         Current user_id: {this.state.userId}
-        <Groups 
-          groups={this.state.groups}
-          createGroup={this.createGroup}
-        />
-        <Events/>
-        <Chat/>
         <Users
           users={this.state.users}
         />
       </div>
+    )
+    return (
+      <Grid>
+        <Row className="visible-xs">
+          <Col xs={12}>
+            <h2 onClick={()=>{this.mobileViewSwitch()}}>
+              Groupname &#9660;
+            </h2>
+            <Collapse in={this.state.mobileViewToggle} >
+              <div>
+                {GroupsComponent}
+              </div>
+            </Collapse>
+            <Collapse in={!this.state.mobileViewToggle}>
+              <Tabs defaultActiveKey={2} id="componentTabs">
+                <Tab eventKey={1} title="Events">
+                  {EventsComponent}
+                </Tab>
+                <Tab eventKey={2} title="Chat">
+                  {ChatComponent}
+                </Tab>
+                <Tab eventKey={3} title="Users">
+                  {UsersComponent}
+                </Tab>
+              </Tabs>
+            </Collapse>
+          </Col>
+        </Row>
+        <Row className="hidden-lg hidden-xs">
+          <Col sm={4}>
+            {GroupsComponent}
+          </Col>
+          <Col sm={8}>
+            <Tabs defaultActiveKey={2} id="componentTabs">
+              <Tab eventKey={1} title="Events">
+                {EventsComponent}
+              </Tab>
+              <Tab eventKey={2} title="Chat">
+                {ChatComponent}
+              </Tab>
+              <Tab eventKey={3} title="Users">
+                {UsersComponent}
+              </Tab>
+            </Tabs>
+          </Col>
+        </Row>
+        <Row className="visible-lg">
+          <Col sm={12} lg={4}>
+            {GroupsComponent}
+          </Col>
+          <Col sm={12} lg={4}>
+            {EventsComponent}
+            {UsersComponent}
+          </Col>
+          <Col sm={12} lg={4}>
+            {ChatComponent}
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }
