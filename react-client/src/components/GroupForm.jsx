@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormGroup, FormControl, Collapse} from 'react-bootstrap';
 
 class GroupForm extends React.Component {
   constructor(props) {
@@ -6,9 +7,13 @@ class GroupForm extends React.Component {
   }
   render() {
     return (
-      <div>
-        Form goes here
-      </div>
+      <Collapse in={true}>    
+        <form>
+          <FormGroup>
+            <FormControl type="text" placeholder="Large text" />
+          </FormGroup>
+        </form>
+      </Collapse>
     )
   }
 }

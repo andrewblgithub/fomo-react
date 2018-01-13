@@ -1,16 +1,10 @@
 import React from 'react';
+import {ListGroupItem} from 'react-bootstrap';
 
 const Group = (props) => (
-  <div>
-    <hr/>
-    <p>
-      { props.group.name }
-    </p>
-    <p>
-      { props.group.description }
-    </p>
-    <hr/>
-  </div>
+  <ListGroupItem>
+    { props.group.name }
+  </ListGroupItem>
 )
 
 export default Group;

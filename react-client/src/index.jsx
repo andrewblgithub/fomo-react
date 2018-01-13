@@ -41,7 +41,7 @@ class App extends React.Component {
   }
 
   getGroups() {
-    axios.get('/groups')
+    axios.get('/groups/' + this.state.userId)
       .then((response)=> {
         this.setState({
           groups: response.data
@@ -121,9 +121,11 @@ class App extends React.Component {
         </Row>
         <Row className="hidden-lg hidden-xs">
           <Col sm={4}>
+            <h2>Fomo</h2>
             {GroupsComponent}
           </Col>
           <Col sm={8}>
+            <h2>Groupname</h2>
             <Tabs defaultActiveKey={2} id="componentTabs">
               <Tab eventKey={1} title="Events">
                 {EventsComponent}
@@ -138,14 +140,16 @@ class App extends React.Component {
           </Col>
         </Row>
         <Row className="visible-lg">
-          <Col sm={12} lg={4}>
+          <Col lg={4}>
+            <h2>Fomo</h2>
             {GroupsComponent}
           </Col>
-          <Col sm={12} lg={4}>
+          <Col lg={4}>
+            <h2>Groupname</h2>
             {EventsComponent}
             {UsersComponent}
           </Col>
-          <Col sm={12} lg={4}>
+          <Col lg={4}>
             {ChatComponent}
           </Col>
         </Row>

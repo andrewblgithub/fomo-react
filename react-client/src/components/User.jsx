@@ -1,16 +1,12 @@
 import React from 'react';
+import {ListGroupItem} from 'react-bootstrap';
 
 const User = (props) => (
-  <div>
-    <hr/>
-    <p>
-      { props.user.id }
-    </p>
-    <p>
-      { props.user.email }
-    </p>
-    <hr/>
-  </div>
+  <ListGroupItem>
+    { props.user.id }
+    <br/>
+    { props.user.email }
+  </ListGroupItem>
 )
 
 export default User;
