@@ -24,8 +24,12 @@ const deleteEvent = (data, callback) => {
 
 const getEvents = (input, callback) => {
   // find events in a specific group only by id
+  // order by start time
   Event.findAll({
-    where: {group_id: input}
+    where: {group_id: input},
+    order: [
+      ['start_time', 'ASC']
+    ],
   }).then((events)=> {
     callback(events);
   })
