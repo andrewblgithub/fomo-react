@@ -12,16 +12,21 @@ class App extends React.Component {
     super(props);
     this.state = { 
       mobileViewToggle: false,
+      // user states
       users: [],
       userId: 2,
+      // group states
       groups: [],
       groupId: null,
-      groupName: ''
+      groupName: '',
+      // event states
+      events: [],
     }
     this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getGroups = this.getGroups.bind(this);
     this.createGroup = this.createGroup.bind(this);
+    this.selectGroup = this.selectGroup.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +71,13 @@ class App extends React.Component {
     });
   }
 
+  selectGroup(name, id) {
+    this.setState({
+      groupName: name,
+      groupId: id
+    })
+  }
+
   mobileViewSwitch() {
     this.setState({
       mobileViewToggle: !this.state.mobileViewToggle
@@ -77,28 +89,28 @@ class App extends React.Component {
       <Groups 
       groups={this.state.groups}
       createGroup={this.createGroup}
+      selectGroup={this.selectGroup}
       />
     )
     let EventsComponent = (
-      <Events/>
+      <Events
+        groups={this.state.events}
+      />
     )
     let ChatComponent = (
       <Chat/>
     )
     let UsersComponent = (
-      <div>
-        Current user_id: {this.state.userId}
-        <Users
-          users={this.state.users}
-        />
-      </div>
+      <Users
+        users={this.state.users}
+      />
     )
     return (
       <Grid>
         <Row className="visible-xs">
           <Col xs={12}>
             <h2 onClick={()=>{this.mobileViewSwitch()}}>
-              Groupname &#9660;
+              {this.state.groupName || 'Select a Group'} &#9660;
             </h2>
             <Collapse in={this.state.mobileViewToggle} >
               <div>
@@ -126,7 +138,7 @@ class App extends React.Component {
             {GroupsComponent}
           </Col>
           <Col sm={8}>
-            <h2>Groupname</h2>
+            <h2>{this.state.groupName || 'Select a Group'}</h2>
             <Tabs defaultActiveKey={2} id="componentTabs">
               <Tab eventKey={1} title="Events">
                 {EventsComponent}
@@ -146,7 +158,7 @@ class App extends React.Component {
             {GroupsComponent}
           </Col>
           <Col lg={4}>
-            <h2>Groupname</h2>
+            <h2>{this.state.groupName || 'Select a Group'}</h2>
             {EventsComponent}
             {UsersComponent}
           </Col>

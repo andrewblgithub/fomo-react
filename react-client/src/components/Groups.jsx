@@ -9,7 +9,13 @@ const Groups = (props) => (
   <div>
     <GroupForm props={props.createGroup} />
     <ListGroup>
-      { props.groups.map((group, i) => <Group group={group} key={i}/>)}
+      { props.groups.map((group, i) => 
+        <Group
+          group={group}
+          key={i}
+          selectGroup={props.selectGroup}
+        />
+      )}
     </ListGroup>
   </div>
 )
