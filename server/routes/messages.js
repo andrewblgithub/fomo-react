@@ -11,7 +11,9 @@ router.ws('/', (ws, req)=> {
   openChannels.push(ws);
   ws.on('message', (msg)=> {
     openChannels.forEach(channel=> {
-      channel.send(msg);
+      if (channel.readyState === 1) {
+        channel.send(msg);
+      }
     })
   });
 });

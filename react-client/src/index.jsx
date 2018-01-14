@@ -15,7 +15,8 @@ class App extends React.Component {
       users: [],
       userId: 2,
       groups: [],
-      groupId: null
+      groupId: null,
+      groupName: ''
     }
     this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
     this.getUsers = this.getUsers.bind(this);
