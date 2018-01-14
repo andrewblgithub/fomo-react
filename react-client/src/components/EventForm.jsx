@@ -1,8 +1,7 @@
 import React from 'react';
-import User from './User.jsx';
-import {Modal, Button, ListGroup} from 'react-bootstrap';
+import {FormGroup, FormControl, Modal, Button} from 'react-bootstrap';
 
-class UsersForm extends React.Component {
+class EventForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +10,6 @@ class UsersForm extends React.Component {
     this.showModal = this.showModal.bind(this);
   }
   showModal() {
-    this.props.findUsers();
     this.setState({
       showModal: !this.state.showModal
     })
@@ -22,18 +20,20 @@ class UsersForm extends React.Component {
         <Button
           onClick={()=> {this.showModal()}}
         >
-          Invite
+          Create Event
         </Button>
         <Modal show={this.state.showModal}>
           <Modal.Body>
-            <Button
-              onClick={()=> {this.showModal()}}
-            >
-              Close
-            </Button>
-            <ListGroup>
-              { this.props.otherUsers.map((user, i) => <User user={user} key={i}/>)}
-            </ListGroup>
+            <form>
+              <Button
+                onClick={()=> {this.showModal()}}
+              >
+                Close
+              </Button>
+              <FormGroup>
+                <FormControl type="text" placeholder="Large text" />
+              </FormGroup>
+            </form>
           </Modal.Body>
         </Modal>
       </div>
@@ -41,4 +41,4 @@ class UsersForm extends React.Component {
   }
 }
 
-export default UsersForm;
+export default EventForm;

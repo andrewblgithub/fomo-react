@@ -5,7 +5,10 @@ import {ListGroup} from 'react-bootstrap';
 
 const Users = (props) => (
   <div>
-    <UsersForm/>
+    <UsersForm
+      findUsers={props.findUsers}
+      otherUsers={props.otherUsers}
+    />
     <ListGroup>
       { props.users.map((user, i) => <User user={user} key={i}/>)}
     </ListGroup>

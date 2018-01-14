@@ -19,8 +19,8 @@ app.use('/users', users);
 app.use('/messages', messages);
 // app.use('/invites', invites);
 app.use('/groups', groups);
-// app.use('/events', events);
-app.use('/authentication', auth);
+app.use('/events', events);
+// app.use('/authentication', auth);
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');

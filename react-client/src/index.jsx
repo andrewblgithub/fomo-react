@@ -15,6 +15,7 @@ class App extends React.Component {
       // user states
       users: [],
       userId: 2,
+      otherUsers: [],
       // group states
       groups: [],
       groupId: null,
@@ -24,26 +25,40 @@ class App extends React.Component {
     }
     this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
     this.getUsers = this.getUsers.bind(this);
+    this.findUsers = this.findUsers.bind(this);
     this.getGroups = this.getGroups.bind(this);
     this.createGroup = this.createGroup.bind(this);
     this.selectGroup = this.selectGroup.bind(this);
+    this.createEvent = this.createEvent.bind(this);
+    this.getEvents = this.getEvents.bind(this);
   }
 
   componentDidMount() {
-    this.getUsers();
     this.getGroups();
   }
 
   getUsers() {
-    axios.get('/users')
-    .then((response)=> {
-      this.setState({
-        users: response.data
+    axios.post('/users/' + this.state.groupId)
+      .then((response)=> {
+        this.setState({
+          users: response.data
+        })
       })
-    })
-    .catch((error)=> {
-      console.log(error);
-    });
+      .catch((error)=> {
+        console.log(error);
+      });
+  }
+
+  findUsers() {
+    axios.get('/users')
+      .then((response)=> {
+        this.setState({
+          otherUsers: response.data
+        })
+      })
+      .catch((error)=> {
+        console.log(error);
+      });
   }
 
   getGroups() {
@@ -61,21 +76,47 @@ class App extends React.Component {
   createGroup(formData) {
     formData.user_id = this.state.userId;
     axios.post('/groups', formData)
-    .then((response)=> {
-      this.setState({
-        groups: response.data
+      .then(()=> {
+        this.getGroups();
       })
-    })
-    .catch((error)=> {
-      console.log(error);
-    });
+      .catch((error)=> {
+        console.log(error);
+      });
   }
 
   selectGroup(name, id) {
     this.setState({
       groupName: name,
       groupId: id
+    }, ()=> {
+      // get events and users once group is selected
+      this.getUsers();
+      this.getEvents();
     })
+  }
+
+  createEvent() {
+    formData.group_id = this.state.groupId;
+    formData.user_id = this.state.userId;
+    axios.post('/events', formData)
+    .then(()=> {
+      this.getEvents();
+    })
+    .catch((error)=> {
+      console.log(error);
+    });
+  }
+  
+  getEvents() {
+    axios.get('/events/' + this.state.groupId)
+      .then((response)=> {
+        this.setState({
+          events: response.data
+        })
+      })
+      .catch((error)=> {
+        console.log(error);
+      });
   }
 
   mobileViewSwitch() {
@@ -94,7 +135,7 @@ class App extends React.Component {
     )
     let EventsComponent = (
       <Events
-        groups={this.state.events}
+        events={this.state.events}
       />
     )
     let ChatComponent = (
@@ -103,6 +144,8 @@ class App extends React.Component {
     let UsersComponent = (
       <Users
         users={this.state.users}
+        otherUsers={this.state.otherUsers}
+        findUsers={this.findUsers}
       />
     )
     return (
@@ -139,7 +182,7 @@ class App extends React.Component {
           </Col>
           <Col sm={8}>
             <h2>{this.state.groupName || 'Select a Group'}</h2>
-            <Tabs defaultActiveKey={2} id="componentTabs">
+            <Tabs defaultActiveKey={1} id="componentTabs">
               <Tab eventKey={1} title="Events">
                 {EventsComponent}
               </Tab>

@@ -23,6 +23,13 @@ router.post('/', (req, res)=> {
   });
 });
 
+// post with group_id to get group users
+router.post('/:id', (req, res)=> {
+  users.getGroupUsers(req.params.id, (result)=> {
+    res.json(result);
+  });
+});
+
 router.put('/', (req, res)=> {
   users.updateUser(req.body, (result)=> {
     res.json(result[0] + ' user updated');

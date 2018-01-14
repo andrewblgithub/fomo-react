@@ -1,4 +1,5 @@
 const User = require('../models/user.js');
+const Member = require('../models/member.js');
 const bcrypt = require('bcrypt');
 
 const createUser = (data, callback) => {
@@ -53,6 +54,23 @@ const getAllUsers = (callback) => {
   })
 };
 
+const getGroupUsers = (input, callback) => {
+  Member.findAll({
+    where: {
+      group_id: input
+    }
+  }).then((memberships)=> {
+    let user_ids = memberships.map((member)=> {
+      return member.user_id;
+    })
+    User.findAll({
+      where: {id: user_ids}
+    }).then((users)=> {
+      callback(users);
+    })
+  })
+}
+
 const hashPassword = (plainTextPassword, callback) => {
   bcrypt.genSalt(12, (err, salt)=> {
     bcrypt.hash(plainTextPassword, salt, (err, hash)=> {
@@ -86,5 +104,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getUser,
-  getAllUsers
+  getAllUsers,
+  getGroupUsers
 }
