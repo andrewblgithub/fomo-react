@@ -4,7 +4,7 @@ import {Panel} from 'react-bootstrap';
 const ChatMessage = (props) => (
   <Panel>
     <Panel.Body>
-      { props.message.message }
+      { props.message.contents }
     </Panel.Body>
   </Panel>
 )

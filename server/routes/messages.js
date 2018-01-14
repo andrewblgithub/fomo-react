@@ -7,9 +7,12 @@ router.use(bodyParser.json());
 
 const openChannels = [];
 
-router.ws('/', (ws, req)=> {
+router.ws('/:group_id', (ws, req)=> {
   openChannels.push(ws);
   ws.on('message', (msg)=> {
+    messages.createMessage(JSON.parse(msg), (result)=> {
+      res.json(result);
+    });
     openChannels.forEach(channel=> {
       if (channel.readyState === 1) {
         channel.send(msg);
@@ -18,11 +21,13 @@ router.ws('/', (ws, req)=> {
   });
 });
 
-// router.get('/:id', (req, res)=> {
-//   messages.getMessages(req.params.id, (user)=> {
-//     res.json(user);
-//   })
-// });
+router.get('/:group_id', (req, res)=> {
+  messages.getMessages(req.params.group_id, (messages)=> {
+    res.json(messages);
+  })
+});
+
+// need to add group_id param for routes below
 
 // router.post('/', (req, res)=> {
 //   messages.createMessage(req.body, (result)=> {

@@ -22,6 +22,7 @@ class App extends React.Component {
       groupName: '',
       // event states
       events: [],
+      // messages handled in chat.jsx
     }
     this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
     this.getUsers = this.getUsers.bind(this);
@@ -139,7 +140,10 @@ class App extends React.Component {
       />
     )
     let ChatComponent = (
-      <Chat/>
+      <Chat
+        userId={this.state.userId}
+        groupId={this.state.groupId}
+      />
     )
     let UsersComponent = (
       <Users
