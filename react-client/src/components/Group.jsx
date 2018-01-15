@@ -4,7 +4,7 @@ import {ListGroupItem} from 'react-bootstrap';
 const Group = (props) => (
   <ListGroupItem
     onClick={()=> {
-      props.selectGroup(props.group.name, props.group.id)
+      props.selectGroup(props.group)
     }}
     style={{pointer: 'cursor'}}
   >

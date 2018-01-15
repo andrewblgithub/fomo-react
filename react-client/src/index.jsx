@@ -12,16 +12,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      logginIn: false,
-      mobileViewToggle: false,
+      mobileViewToggle: true,
       // user states
+      logginIn: false,
+      user: {id: 2},
       users: [],
-      userId: 2,
       otherUsers: [],
       // group states
+      group: {},
       groups: [],
-      groupId: null,
-      groupName: '',
+      // groupId: null,
+      // groupName: '',
       // event states
       events: [],
       // messages handled in chat.jsx
@@ -41,18 +42,29 @@ class App extends React.Component {
   }
 
   logIn() {
-    
+    axios.post('/users/login', formData)
+      .then((response)=> {
+        this.setState({
+          user: response.data
+        })
+      })
+      .catch((error)=> {
+        console.log(error);
+      })
   }
 
   createUser(formData) {
-    // axios.post('/users', formData)
-    //   .then(()=> {
-    //     this.logIn()
-    //   })
+    axios.post('/users', formData)
+      .then(()=> {
+        this.logIn()
+      })
+      .catch((error)=> {
+        console.log(error);
+      })
   }
 
   getUsers() {
-    axios.post('/users/' + this.state.groupId)
+    axios.post('/users/' + this.state.group.id)
       .then((response)=> {
         this.setState({
           users: response.data
@@ -76,7 +88,7 @@ class App extends React.Component {
   }
 
   getGroups() {
-    axios.get('/groups/' + this.state.userId)
+    axios.get('/groups/' + this.state.user.id)
       .then((response)=> {
         this.setState({
           groups: response.data
@@ -88,7 +100,7 @@ class App extends React.Component {
   }
 
   createGroup(formData) {
-    formData.user_id = this.state.userId;
+    formData.user_id = this.state.user.id;
     axios.post('/groups', formData)
       .then(()=> {
         this.getGroups();
@@ -98,10 +110,9 @@ class App extends React.Component {
       });
   }
 
-  selectGroup(name, id) {
+  selectGroup(selectedGroup) {
     this.setState({
-      groupName: name,
-      groupId: id
+      group: selectedGroup
     }, ()=> {
       // get events and users once group is selected
       this.getUsers();
@@ -110,8 +121,8 @@ class App extends React.Component {
   }
 
   createEvent() {
-    formData.group_id = this.state.groupId;
-    formData.user_id = this.state.userId;
+    formData.group_id = this.state.group.id;
+    formData.user_id = this.state.user.id;
     axios.post('/events', formData)
     .then(()=> {
       this.getEvents();
@@ -122,7 +133,7 @@ class App extends React.Component {
   }
   
   getEvents() {
-    axios.get('/events/' + this.state.groupId)
+    axios.get('/events/' + this.state.group.id)
       .then((response)=> {
         this.setState({
           events: response.data
@@ -158,8 +169,8 @@ class App extends React.Component {
     )
     let ChatComponent = (
       <Chat
-        userId={this.state.userId}
-        groupId={this.state.groupId}
+        userId={this.state.user.id}
+        groupId={this.state.group.id}
       />
     )
     let UsersComponent = (
