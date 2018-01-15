@@ -41,6 +41,14 @@ class Event extends React.Component {
     });
   }
   render() {
+    const countdown = (
+      <div>
+        { this.state.days }<span> </span>Days<span> </span>
+        { this.state.hours }<span> </span>Hours<span> </span>
+        { this.state.minutes }<span> </span>Minutes<span> </span>
+        { this.state.seconds }<span> </span>Seconds<span> </span>
+      </div>
+    )
     return (
       <ListGroupItem
         onClick={()=> {
@@ -48,12 +56,10 @@ class Event extends React.Component {
         }}
         style={{pointer: 'cursor'}}
       >
-        { this.state.days } days
-        { this.state.hours } hours
-        { this.state.minutes } minutes
-        { this.state.seconds } seconds
-        <br/>
-        { this.props.event.title }
+        {countdown}
+        <b>
+          { this.props.event.title }
+        </b>
         <br/>
         { this.props.event.description }
       </ListGroupItem>

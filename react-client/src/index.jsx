@@ -132,9 +132,10 @@ class App extends React.Component {
     })
   }
 
-  createEvent() {
+  createEvent(formData) {
     formData.group_id = this.state.group.id;
     formData.user_id = this.state.user.id;
+    console.log('ok')
     axios.post('/events', formData)
     .then(()=> {
       this.getEvents();
@@ -177,6 +178,7 @@ class App extends React.Component {
     let EventsComponent = (
       <Events
         events={this.state.events}
+        createEvent={this.createEvent}
       />
     )
     let ChatComponent = (
