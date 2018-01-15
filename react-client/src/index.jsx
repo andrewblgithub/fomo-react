@@ -60,7 +60,10 @@ class App extends React.Component {
   createUser(formData) {
     axios.post('/users', formData)
       .then(()=> {
-        this.logIn()
+        this.logIn({
+          email: formData.email,
+          password: formData.password
+        })
       })
       .catch((error)=> {
         console.log(error);
