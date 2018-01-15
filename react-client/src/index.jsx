@@ -6,11 +6,13 @@ import Groups from './components/Groups.jsx';
 import Events from './components/Events.jsx';
 import Chat from './components/Chat.jsx';
 import Users from './components/Users.jsx';
+import Login from './components/Login.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
+      logginIn: false,
       mobileViewToggle: false,
       // user states
       users: [],
@@ -36,6 +38,17 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getGroups();
+  }
+
+  logIn() {
+    
+  }
+
+  createUser(formData) {
+    // axios.post('/users', formData)
+    //   .then(()=> {
+    //     this.logIn()
+    //   })
   }
 
   getUsers() {
@@ -127,6 +140,10 @@ class App extends React.Component {
   }
 
   render () {
+    let LoginComponent = (
+      <Login
+      />
+    )
     let GroupsComponent = (
       <Groups 
       groups={this.state.groups}
@@ -152,20 +169,42 @@ class App extends React.Component {
         findUsers={this.findUsers}
       />
     )
-    return (
-      <Grid>
-        <Row className="visible-xs">
-          <Col xs={12}>
-            <h2 onClick={()=>{this.mobileViewSwitch()}}>
-              {this.state.groupName || 'Select a Group'} &#9660;
-            </h2>
-            <Collapse in={this.state.mobileViewToggle} >
-              <div>
-                {GroupsComponent}
-              </div>
-            </Collapse>
-            <Collapse in={!this.state.mobileViewToggle}>
-              <Tabs defaultActiveKey={2} id="componentTabs">
+    if (!this.state.logginIn) {
+      return (
+        <Grid>
+          <Row className="visible-xs">
+            <Col xs={12}>
+              <h2 onClick={()=>{this.mobileViewSwitch()}}>
+                {this.state.groupName || 'Select a Group'} &#9660;
+              </h2>
+              <Collapse in={this.state.mobileViewToggle} >
+                <div>
+                  {GroupsComponent}
+                </div>
+              </Collapse>
+              <Collapse in={!this.state.mobileViewToggle}>
+                <Tabs defaultActiveKey={2} id="componentTabs">
+                  <Tab eventKey={1} title="Events">
+                    {EventsComponent}
+                  </Tab>
+                  <Tab eventKey={2} title="Chat">
+                    {ChatComponent}
+                  </Tab>
+                  <Tab eventKey={3} title="Users">
+                    {UsersComponent}
+                  </Tab>
+                </Tabs>
+              </Collapse>
+            </Col>
+          </Row>
+          <Row className="hidden-lg hidden-xs">
+            <Col sm={4}>
+              <h2>Fomo</h2>
+              {GroupsComponent}
+            </Col>
+            <Col sm={8}>
+              <h2>{this.state.groupName || 'Select a Group'}</h2>
+              <Tabs defaultActiveKey={1} id="componentTabs">
                 <Tab eventKey={1} title="Events">
                   {EventsComponent}
                 </Tab>
@@ -176,45 +215,31 @@ class App extends React.Component {
                   {UsersComponent}
                 </Tab>
               </Tabs>
-            </Collapse>
-          </Col>
-        </Row>
-        <Row className="hidden-lg hidden-xs">
-          <Col sm={4}>
-            <h2>Fomo</h2>
-            {GroupsComponent}
-          </Col>
-          <Col sm={8}>
-            <h2>{this.state.groupName || 'Select a Group'}</h2>
-            <Tabs defaultActiveKey={1} id="componentTabs">
-              <Tab eventKey={1} title="Events">
-                {EventsComponent}
-              </Tab>
-              <Tab eventKey={2} title="Chat">
-                {ChatComponent}
-              </Tab>
-              <Tab eventKey={3} title="Users">
-                {UsersComponent}
-              </Tab>
-            </Tabs>
-          </Col>
-        </Row>
-        <Row className="visible-lg">
-          <Col lg={4}>
-            <h2>Fomo</h2>
-            {GroupsComponent}
-          </Col>
-          <Col lg={4}>
-            <h2>{this.state.groupName || 'Select a Group'}</h2>
-            {EventsComponent}
-            {UsersComponent}
-          </Col>
-          <Col lg={4}>
-            {ChatComponent}
-          </Col>
-        </Row>
-      </Grid>
-    )
+            </Col>
+          </Row>
+          <Row className="visible-lg">
+            <Col lg={4}>
+              <h2>Fomo</h2>
+              {GroupsComponent}
+            </Col>
+            <Col lg={4}>
+              <h2>{this.state.groupName || 'Select a Group'}</h2>
+              {EventsComponent}
+              {UsersComponent}
+            </Col>
+            <Col lg={4}>
+              {ChatComponent}
+            </Col>
+          </Row>
+        </Grid>
+      )
+    } else {
+      return (
+        <div>
+          {LoginComponent}
+        </div>
+      )
+    }
   }
 }
 

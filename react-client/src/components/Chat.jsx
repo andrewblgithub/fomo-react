@@ -39,7 +39,6 @@ class Chat extends React.Component {
   }
   getMessages() {
     if (this.props.groupId) {
-      console.log('getting')
       axios.get('/messages/' + this.props.groupId)
         .then((response)=> {
           this.setState({

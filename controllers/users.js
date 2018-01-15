@@ -18,12 +18,23 @@ const createUser = (data, callback) => {
 };
 
 const updateUser = (data, callback) => {
-  User.update(data, {
-    where: {email: data.email}
-  }).then((updatedUser)=> {
-    console.log(updatedUser)
-    callback(updatedUser);
-  })
+  // hash password if updated
+  if (data.password) {
+    hashPassword(data.password, (hashedPassword)=> {
+      data.password = hashedPassword
+      User.update(data, {
+        where: {email: data.email}
+      }).then((updatedUser)=> {
+        callback(updatedUser);
+      })
+    })
+  } else {
+    User.update(data, {
+      where: {email: data.email}
+    }).then((updatedUser)=> {
+      callback(updatedUser);
+    })
+  }
 };
 
 const deleteUser = (data, callback) => {
@@ -34,11 +45,11 @@ const deleteUser = (data, callback) => {
   })
 };
 
-const getUser = (input, callback, findbyEmail) => {
+const getUser = (input, callback, findByEmail) => {
   let param = {
     where: {id: input}
   };
-  if (findbyEmail) {
+  if (findByEmail) {
     param = {
       where: {email: input}
     };
@@ -82,21 +93,22 @@ const hashPassword = (plainTextPassword, callback) => {
   })
 };
 
-const comparePassword = (plainTextPassword) => {
-  getUser((user)=> {
+const comparePassword = (email, plainTextPassword, callback) => {
+  getUser(email, (user)=> {
     if (user) {
-      bcrypt.compare(plainTextPassword, user[0].dataValues.password, (err, results)=> {
+      bcrypt.compare(plainTextPassword, user.password, (err, result)=> {
         if (result) {
-          // create session
-          console.log('password matches')
+          // pass matches - send user info
+          user.password = null;
+          callback(user);
         } else {
-          console.log('password does not match')
+          callback('Password does not match!')
         }
       })
     } else {
-      console.log('user does not exist')
+      callback('User does not exist!')
     }
-  });
+  }, true);
 };
 
 module.exports = {
@@ -105,5 +117,6 @@ module.exports = {
   deleteUser,
   getUser,
   getAllUsers,
-  getGroupUsers
+  getGroupUsers,
+  comparePassword
 }

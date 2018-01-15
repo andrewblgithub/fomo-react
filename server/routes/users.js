@@ -23,9 +23,17 @@ router.post('/', (req, res)=> {
   });
 });
 
+// users/login route to attempt login
+router.post('/login', (req, res)=> {
+  // comparePassword recieves email, pass, callback
+  users.comparePassword(req.body.email, req.body.password, (result)=> {
+    res.json(result);
+  })
+})
+
 // post with group_id to get group users
-router.post('/:id', (req, res)=> {
-  users.getGroupUsers(req.params.id, (result)=> {
+router.post('/:group_id', (req, res)=> {
+  users.getGroupUsers(req.params.group_id, (result)=> {
     res.json(result);
   });
 });
