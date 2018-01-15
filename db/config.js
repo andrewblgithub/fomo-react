@@ -4,7 +4,8 @@ const sequelize = new Sequelize({
   database: 'fomo',
   username: 'andrew',
   password: null,
-  dialect: 'postgres'
+  dialect: 'postgres',
+  host: process.env.DATABASE_URL || 'localhost'
 });
 
 sequelize
