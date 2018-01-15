@@ -14,7 +14,7 @@ class Chat extends React.Component {
     this.getMessages = this.getMessages.bind(this);
   }
   componentDidMount() {
-    this.connection = new WebSocket('ws://localhost:3000/messages/' + this.props.groupId);
+    this.connection = new WebSocket('ws://fomomessenger.herokuapp.com/messages/' + this.props.groupId);
     this.connection.onmessage = (event) => { 
       let message = JSON.parse(event.data)
       if (message.group_id === this.props.groupId) {
