@@ -5,7 +5,9 @@ class GroupForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      name: '',
+      description: ''
     }
     this.showModal = this.showModal.bind(this);
   }
@@ -13,6 +15,20 @@ class GroupForm extends React.Component {
     this.setState({
       showModal: !this.state.showModal
     })
+  }
+  handleName(e) {
+    this.setState({ name: e.target.value });
+  }
+  handleDescription(e) {
+    this.setState({ description: e.target.value });
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.createGroup({
+      name: this.state.name,
+      description: this.state.description,
+    });
+    this.showModal();
   }
   render() {
     return (
@@ -30,9 +46,26 @@ class GroupForm extends React.Component {
               >
                 Close
               </Button>
+              <br/>
+              <br/>
               <FormGroup>
-                <FormControl type="text" placeholder="Large text" />
+                <FormControl
+                  type="text"
+                  value={this.state.name}
+                  placeholder="Name"
+                  onChange={(e)=>{this.handleName(e)}}
+                />
               </FormGroup>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  value={this.state.description}
+                  placeholder="Description"
+                  onChange={(e)=>{this.handleDescription(e)}}
+                />
+              </FormGroup>
+              <br/>
+              <Button type="button" onClick={(e)=>{this.handleSubmit(e)}}>Submit</Button>
             </form>
           </Modal.Body>
         </Modal>

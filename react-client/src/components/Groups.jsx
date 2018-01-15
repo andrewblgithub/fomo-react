@@ -7,7 +7,7 @@ import GroupForm from './GroupForm.jsx';
 
 const Groups = (props) => (
   <div>
-    <GroupForm props={props.createGroup} />
+    <GroupForm createGroup={props.createGroup} />
     <br/>
     <ListGroup>
       { props.groups.map((group, i) => 

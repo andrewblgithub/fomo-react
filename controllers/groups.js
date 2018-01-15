@@ -3,7 +3,12 @@ const Member = require('../models/member.js');
 
 const createGroup = (data, callback) => {
   Group.create(data).then((createdGroup, err)=> {
-    callback(createdGroup);
+    Member.create({
+      user_id: createdGroup.user_id,
+      group_id: createdGroup.id
+    }).then((createdMember)=> {
+      callback(createdGroup);
+    })
   })
 };
 
