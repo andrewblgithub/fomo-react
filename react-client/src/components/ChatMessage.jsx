@@ -4,7 +4,7 @@ import {Panel} from 'react-bootstrap';
 const ChatMessage = (props) => (
   <Panel>
     <Panel.Body>
-      <b>{props.message.contents}</b>
+      <b>{props.message.user.first_name}</b>
       <span>: </span>
       {props.message.contents}
     </Panel.Body>

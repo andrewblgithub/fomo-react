@@ -18,12 +18,14 @@ class ChatWindow extends React.Component {
   }
   render() {
     return (
-      <Well>
-
-        <div style={{ minHeight: '400px', maxHeight: '400px', overflowY: 'scroll'}} ref='chat'>
-          { this.props.messages.map((message, i) => <ChatMessage message={message} key={i}/>)}
-        </div>
-      </Well>
+      <div>
+        <br/>
+        <Well>
+          <div style={{ minHeight: '400px', maxHeight: '400px', overflowY: 'scroll'}} ref='chat'>
+            { this.props.messages.map((message, i) => <ChatMessage message={message} key={i}/>)}
+          </div>
+        </Well>
+      </div>
     )
   }
 }

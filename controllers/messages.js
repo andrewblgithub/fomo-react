@@ -1,4 +1,9 @@
 const Message = require('../models/message.js');
+const User = require('../models/user.js');
+
+// set association with user
+User.hasMany(Message, {foreignKey: 'user_id'})
+Message.belongsTo(User, {foreignKey: 'user_id'})
 
 const createMessage = (data, callback) => {
   Message.create(data).then((createdMessage, err)=> {
@@ -25,7 +30,10 @@ const deleteMessage = (data, callback) => {
 const getMessages = (input, callback) => {
   // find messages in a specific group only by id
   Message.findAll({
-    where: {group_id: input}
+    where: {group_id: input},
+    include: [{
+     model: User
+    }]
   }).then((Messages)=> {
     callback(Messages);
   })
