@@ -28,6 +28,8 @@ class App extends React.Component {
       // messages handled in chat.jsx
     }
     this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
+    this.login = this.login.bind(this);
+    this.createUser = this.createUser.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.findUsers = this.findUsers.bind(this);
     this.addUser = this.addUser.bind(this);
@@ -42,11 +44,12 @@ class App extends React.Component {
     this.getGroups();
   }
 
-  logIn() {
+  login(formData) {
     axios.post('/users/login', formData)
       .then((response)=> {
         this.setState({
-          user: response.data
+          user: response.data,
+          logginIn: true
         })
       })
       .catch((error)=> {
@@ -166,6 +169,8 @@ class App extends React.Component {
   render () {
     let LoginComponent = (
       <Login
+        login={this.login}
+        createUser={this.createUser}
       />
     )
     let GroupsComponent = (
@@ -195,7 +200,7 @@ class App extends React.Component {
         addUser={this.addUser}
       />
     )
-    if (!this.state.logginIn) {
+    if (this.state.logginIn) {
       return (
         <Grid>
           <Row className="visible-xs">

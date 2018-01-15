@@ -5,8 +5,10 @@ import LoginCreate from './LoginCreate.jsx';
 const Login = (props) => (
   <div>
     <LoginCreate
+      createUser={props.createUser}
     />
     <LoginForm
+      login={props.login}
     />
   </div>
 )
