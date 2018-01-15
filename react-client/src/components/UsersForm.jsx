@@ -31,8 +31,10 @@ class UsersForm extends React.Component {
             >
               Close
             </Button>
+            <br/>
+            <br/>
             <ListGroup>
-              { this.props.otherUsers.map((user, i) => <User user={user} key={i}/>)}
+              { this.props.otherUsers.map((user, i) => <User user={user} key={i} addUser={this.props.addUser} showModal={this.showModal}/>)}
             </ListGroup>
           </Modal.Body>
         </Modal>

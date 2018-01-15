@@ -10,16 +10,18 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 const users = require('./routes/users');
 const messages = require('./routes/messages');
-const invites = require('./routes/invites');
+// const invites = require('./routes/invites');
+const members = require('./routes/members');
 const groups = require('./routes/groups');
 const events = require('./routes/events');
-const auth = require('./routes/auth');
+// const auth = require('./routes/auth');
 
 app.use('/users', users);
 app.use('/messages', messages);
 // app.use('/invites', invites);
 app.use('/groups', groups);
 app.use('/events', events);
+app.use('/members', members);
 // app.use('/authentication', auth);
 
 app.listen(3000, function() {

@@ -4,7 +4,8 @@ import {ListGroupItem} from 'react-bootstrap';
 const User = (props) => (
   <ListGroupItem
     onClick={()=> {
-
+      props.showModal();
+      props.addUser(props.user)
     }}
     style={{pointer: 'cursor'}}
   >

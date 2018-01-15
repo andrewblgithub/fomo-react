@@ -22,7 +22,7 @@ class App extends React.Component {
       group: {},
       groups: [],
       // groupId: null,
-      // groupName: '',
+      // group.name: '',
       // event states
       events: [],
       // messages handled in chat.jsx
@@ -30,6 +30,7 @@ class App extends React.Component {
     this.mobileViewSwitch = this.mobileViewSwitch.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.findUsers = this.findUsers.bind(this);
+    this.addUser = this.addUser.bind(this);
     this.getGroups = this.getGroups.bind(this);
     this.createGroup = this.createGroup.bind(this);
     this.selectGroup = this.selectGroup.bind(this);
@@ -85,6 +86,16 @@ class App extends React.Component {
       .catch((error)=> {
         console.log(error);
       });
+  }
+
+  // until invite is implemented, directly add users from user list
+  addUser(user) {
+    axios.post('/members', {
+      user_id: user.id,
+      group_id: this.state.group.id
+    }).then(()=> {
+      this.getUsers();
+    })
   }
 
   getGroups() {
@@ -179,6 +190,7 @@ class App extends React.Component {
         users={this.state.users}
         otherUsers={this.state.otherUsers}
         findUsers={this.findUsers}
+        addUser={this.addUser}
       />
     )
     if (!this.state.logginIn) {
@@ -187,7 +199,7 @@ class App extends React.Component {
           <Row className="visible-xs">
             <Col xs={12}>
               <h2 onClick={()=>{this.mobileViewSwitch()}}>
-                {this.state.groupName || 'Select a Group'} &#9660;
+                {this.state.group.name || 'Select a Group'} &#9660;
               </h2>
               <Collapse in={this.state.mobileViewToggle} >
                 <div>
@@ -217,7 +229,7 @@ class App extends React.Component {
               {GroupsComponent}
             </Col>
             <Col sm={8}>
-              <h2>{this.state.groupName || 'Select a Group'}</h2>
+              <h2>{this.state.group.name || 'Select a Group'}</h2>
               <Tabs defaultActiveKey={1} id="componentTabs">
                 <Tab eventKey={1} title="Events">
                   <br/>
@@ -239,7 +251,7 @@ class App extends React.Component {
               {GroupsComponent}
             </Col>
             <Col lg={4}>
-              <h2>{this.state.groupName || 'Select a Group'}</h2>
+              <h2>{this.state.group.name || 'Select a Group'}</h2>
               {EventsComponent}
               {UsersComponent}
             </Col>

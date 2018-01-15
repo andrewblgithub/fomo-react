@@ -8,6 +8,7 @@ const Users = (props) => (
     <UsersForm
       findUsers={props.findUsers}
       otherUsers={props.otherUsers}
+      addUser={props.addUser}
     />
     <br/>
     <ListGroup>
