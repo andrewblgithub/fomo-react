@@ -9,6 +9,7 @@ const Users = (props) => (
       findUsers={props.findUsers}
       otherUsers={props.otherUsers}
     />
+    <br/>
     <ListGroup>
       { props.users.map((user, i) => <User user={user} key={i}/>)}
     </ListGroup>

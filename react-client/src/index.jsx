@@ -112,7 +112,8 @@ class App extends React.Component {
 
   selectGroup(selectedGroup) {
     this.setState({
-      group: selectedGroup
+      group: selectedGroup,
+      mobileViewToggle: !this.state.mobileViewToggle
     }, ()=> {
       // get events and users once group is selected
       this.getUsers();
@@ -196,12 +197,14 @@ class App extends React.Component {
               <Collapse in={!this.state.mobileViewToggle}>
                 <Tabs defaultActiveKey={2} id="componentTabs">
                   <Tab eventKey={1} title="Events">
+                    <br/>
                     {EventsComponent}
                   </Tab>
                   <Tab eventKey={2} title="Chat">
                     {ChatComponent}
                   </Tab>
                   <Tab eventKey={3} title="Users">
+                    <br/>
                     {UsersComponent}
                   </Tab>
                 </Tabs>
@@ -217,12 +220,14 @@ class App extends React.Component {
               <h2>{this.state.groupName || 'Select a Group'}</h2>
               <Tabs defaultActiveKey={1} id="componentTabs">
                 <Tab eventKey={1} title="Events">
+                  <br/>
                   {EventsComponent}
                 </Tab>
                 <Tab eventKey={2} title="Chat">
                   {ChatComponent}
                 </Tab>
                 <Tab eventKey={3} title="Users">
+                  <br/>
                   {UsersComponent}
                 </Tab>
               </Tabs>

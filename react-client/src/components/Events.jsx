@@ -8,6 +8,7 @@ import EventForm from './EventForm.jsx';
 const Events = (props) => (
   <div>
     <EventForm props={props.createEvent} />
+    <br/>
     <ListGroup>
       { props.events.map((event, i) => 
         <Event
