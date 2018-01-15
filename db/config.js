@@ -6,6 +6,7 @@ const sequelize = new Sequelize(match[5], match[1], match[2], {
     protocol: 'postgres',
     port:     match[4],
     host:     match[3],
+    database: 'fomo',
     logging: false,
     dialectOptions: {
         ssl: true
